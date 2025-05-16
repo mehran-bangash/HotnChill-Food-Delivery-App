@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "976988586166",
+    "project_id": "hotnchill-a5b8b",
+    "storage_bucket": "hotnchill-a5b8b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976988586166:android:2a59b3324f4c8b60506617",
+        "android_client_info": {
+          "package_name": "com.example.hotnchill"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEfOaZWXl7hgQizNDl4NVSN0w5FEvhewE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
