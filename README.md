@@ -1,5 +1,5 @@
+# HOTNCHILL - Food Delivery App 
 
-#HOTNCHILL - Food Delivery App
 #HOTNCHILL is a modern Flutter-based food delivery application designed to provide a seamless and engaging user experience.
 The app features intuitive onboarding, user authentication, and a clean, responsive UI for browsing and ordering food.
 It uses Cloudinary for efficient and scalable image storage and management, ensuring fast and optimized image delivery.
