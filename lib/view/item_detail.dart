@@ -259,43 +259,41 @@ class _ItemDetailState extends State<ItemDetail> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Expanded(
-                        child: Container(
-                          height: 43,
-                          width: screenWidth*0.5,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                "Add to card",
-                                style: TextStyle(
-                                  fontFamily: "poppins",
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                      child: Container(
+                        height: 43,
+                        width: screenWidth*0.5,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              "Add to card",
+                              style: TextStyle(
+                                fontFamily: "poppins",
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Container(
+                              height: 25,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
                                 ),
                               ),
-                              Container(
-                                height: 25,
-                                width: 35,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(5),
-                                  ),
-                                ),
-                                child: Icon(
-                                  FontAwesomeIcons.cartShopping,
-                                  color: Colors.white,
-                                  size: 19,
-                                ),
+                              child: Icon(
+                                FontAwesomeIcons.cartShopping,
+                                color: Colors.white,
+                                size: 19,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

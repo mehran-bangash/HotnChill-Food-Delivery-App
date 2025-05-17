@@ -183,145 +183,139 @@ class _HomeState extends State<Home> {
       },
     );
   }
-
   Widget showVerticalItem() {
     return StreamBuilder(
       stream: foodStream,
-      builder: (context,AsyncSnapshot snapshot) {
-        return snapshot.hasData
-            ? ListView.builder(
-             itemCount: snapshot.data.docs.length,
-             shrinkWrap: true,
-              padding: EdgeInsets.zero,
-            physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-               DocumentSnapshot ds=snapshot.data.docs[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-                        ItemDetail(imageUrl: ds["imageUrl"], title:ds["name"], detail: ds["detail"], price: ds["price"]),));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 10,
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (!snapshot.hasData || snapshot.data.docs.isEmpty) {
+          return Center(child: Text("No items found"));
+        }
+
+        return ListView.builder(
+          itemCount: snapshot.data.docs.length,
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            DocumentSnapshot ds = snapshot.data.docs[index];
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ItemDetail(
+                      imageUrl: ds["imageUrl"],
+                      title: ds["name"],
+                      detail: ds["detail"],
+                      price: ds["price"],
                     ),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 10,
+                ),
+                child: Material(
+                  elevation: 8,
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.19,
+                    padding: EdgeInsets.all(10),
                     child: Row(
                       children: [
-                        Expanded(
-                          // Ensures proper width distribution
-                          child: Material(
-                            elevation: 8,
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10, left: 5),
-                              height: MediaQuery.of(context).size.height * 0.19,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                      child: SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.15,
-                                        width: MediaQuery.of(context).size.width * 0.35,
-                                        child: Image.network(
-                                          ds["imageUrl"],
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return Icon(Icons.error,color: Colors.red,);
+                        // Image Section
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            child: Image.network(
+                              ds["imageUrl"],
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey[200],
+                                  child: Icon(Icons.error, color: Colors.red),
+                                );
+                              },
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
 
-                                          },
-                                          loadingBuilder: (context, child, loadingProgress) {
-                                            return loadingProgress==null?child:Center(child: CircularProgressIndicator(),);
-                                          },
-                                        ),
-                                      ),
+                        SizedBox(width: 13),
+
+                        // Text Section - Now properly using Expanded
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  ds["name"] ?? "No Name",
+                                  style: TextStyle(
+                                    fontFamily: "poppins",
+                                    color: Colors.black,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isExpandedText = !isExpandedText;
+                                    });
+                                  },
+                                  child: Text(
+                                    ds["detail"] ?? "No description",
+                                    maxLines: isExpandedText ? null : 1,
+                                    overflow: isExpandedText
+                                        ? TextOverflow.visible
+                                        : TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily: "poppins",
+                                      color: Colors.grey.shade600,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  SizedBox(width: 13),
-                                  Expanded(
-                                    // Wrap Column to avoid overflow
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 28,
-                                        left: 5,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            ds["name"],
-                                            style: TextStyle(
-                                              fontFamily: "poppins",
-                                              color: Colors.black,
-                                              fontSize: 19,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                isExpandedText =
-                                                !isExpandedText;
-                                              });
-                                            },
-                                            child: Flexible(
-                                              child: Text(
-                                                ds["detail"],
-                                                maxLines:
-                                                isExpandedText ? null : 1,
-                                                overflow:
-                                                isExpandedText
-                                                    ? TextOverflow.visible
-                                                    : TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: "poppins",
-                                                  color: Colors.grey.shade600,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 12),
-                                          Flexible(
-                                            child: Text(
-                                              "Rs:${ds["price"]}",
-                                              style: TextStyle(
-                                                fontFamily: "poppins",
-                                                color: Colors.black,
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                ),
+
+                                SizedBox(height: 12),
+
+                                Text(
+                                  "Rs: ${ds["price"]?.toString() ?? "N/A"}",
+                                  style: TextStyle(
+                                    fontFamily: "poppins",
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                );
-              },
-            )
-            : CircularProgressIndicator();
+                ),
+              ),
+            );
+          },
+        );
       },
     );
   }

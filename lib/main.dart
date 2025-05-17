@@ -30,7 +30,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await _setupFirebaseAppCheck(); // 👈 custom setup based on emulator or real device
+  await _setupFirebaseAppCheck();
 
   runApp(const MyApp());
 }
@@ -59,7 +59,7 @@ Future<void> _setupFirebaseAppCheck() async {
     );
   } catch (e) {
     debugPrint('Firebase AppCheck failed: $e');
-    // Optional: handle fallback or retry
+
   }
 }
 
