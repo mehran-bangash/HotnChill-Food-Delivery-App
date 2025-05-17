@@ -10,8 +10,11 @@ The app is built following the MVVM architecture to maintain a clean separation 
 It is optimized for different screen sizes, providing an excellent experience on both phones and tablets.
 Payment integration is planned to ensure secure and convenient transactions.
 This project is perfect for learning advanced Flutter development with real-world backend integrations.
-If you want to access the source code or collaborate, please contact Mehran Bangash at t mehranbangash46@gmail.com"
-Feel free to explore and contribute to make HOTNCHILL even better!
+If you want to access the source code or collaborate, please contact Mehran Bangash at t
+<br>
+# mehranbangash46@gmail.com"
+
+# Feel free to explore and contribute to make HOTNCHILL even better!
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
